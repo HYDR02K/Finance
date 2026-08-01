@@ -1,0 +1,211 @@
+/* ==========================================================================
+   PRO DASHBOARD STYLE
+   Scoped entirely to notes with `cssclasses: pro-dashboard` in frontmatter.
+   Targets only Dataview's rendered output (headings, tables, block wrappers)
+   — never touches the underlying dataview/dataviewjs code.
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+.pro-dashboard {
+  --pd-indigo: #5b5fc7;
+  --pd-amber: #d98e3f;
+  --pd-teal: #2f9e8f;
+  --pd-coral: #c1666b;
+
+  --pd-font-display: 'Fraunces', Georgia, serif;
+  --pd-font-body: 'IBM Plex Sans', var(--font-text, sans-serif);
+  --pd-font-mono: 'IBM Plex Mono', var(--font-monospace, monospace);
+}
+
+/* ---------- Page width & body font ---------- */
+
+.pro-dashboard .markdown-preview-sizer {
+  max-width: 1040px;
+  font-family: var(--pd-font-body);
+}
+
+/* ---------- Grid ---------- */
+
+.pro-dashboard .markdown-preview-sizer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+/* Headings you wrote directly in the note act as full-width section dividers.
+   (Headings created inside a dataviewjs block via dv.header() stay nested
+   inside that block's own card — untouched.) */
+.pro-dashboard .markdown-preview-sizer > h1,
+.pro-dashboard .markdown-preview-sizer > h2,
+.pro-dashboard .markdown-preview-sizer > h3,
+.pro-dashboard .markdown-preview-sizer > h4 {
+  grid-column: 1 / -1;
+}
+
+.pro-dashboard h1,
+.pro-dashboard h2 {
+  font-family: var(--pd-font-display);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--text-normal);
+  border-bottom: 2px solid var(--pd-indigo);
+  padding-bottom: 8px;
+  margin-top: 8px;
+}
+
+.pro-dashboard h3 {
+  font-family: var(--pd-font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+/* First heading in the note shouldn't have extra top margin */
+.pro-dashboard .markdown-preview-sizer > h1:first-child,
+.pro-dashboard .markdown-preview-sizer > h2:first-child {
+  margin-top: 0;
+}
+
+/* ---------- Card shell for every rendered block ---------- */
+
+.pro-dashboard .markdown-preview-sizer > .block-language-dataview,
+.pro-dashboard .markdown-preview-sizer > .block-language-dataviewjs {
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+/* Hide the silent setup block (defines shared helpers, renders nothing) */
+.pro-dashboard .block-language-dataviewjs:has(> span:only-child:empty) {
+  display: none;
+}
+
+/* Tables and charts need horizontal room — span the full grid row */
+.pro-dashboard .markdown-preview-sizer > .block-language-dataview:has(table),
+.pro-dashboard .markdown-preview-sizer > .block-language-dataviewjs:has(table),
+.pro-dashboard .markdown-preview-sizer > .block-language-dataviewjs:has(canvas) {
+  grid-column: 1 / -1;
+}
+
+/* Paragraph-only blocks (status lines, cycle summaries) become compact
+   highlighted stat cards instead of plain text */
+.pro-dashboard .markdown-preview-sizer > .block-language-dataviewjs:not(:has(table)):not(:has(canvas)) {
+  border-top: 2px solid var(--pd-amber);
+}
+
+.pro-dashboard .block-language-dataviewjs:not(:has(table)):not(:has(canvas)) p {
+  font-size: 14px;
+  margin: 6px 0;
+  color: var(--text-normal);
+}
+
+.pro-dashboard .block-language-dataviewjs:not(:has(table)):not(:has(canvas)) p strong {
+  font-family: var(--pd-font-mono);
+  color: var(--pd-indigo);
+}
+
+/* Blocks with their own internal dv.header() get an accent + tighter spacing */
+.pro-dashboard .block-language-dataview,
+.pro-dashboard .block-language-dataviewjs {
+  border-top: 2px solid var(--pd-teal);
+}
+
+.pro-dashboard .block-language-dataviewjs:not(:has(table)):not(:has(canvas)) {
+  border-top-color: var(--pd-amber);
+}
+
+.pro-dashboard .block-language-dataviewjs:has(canvas) {
+  border-top-color: var(--pd-coral);
+}
+
+.pro-dashboard .block-language-dataviewjs h3,
+.pro-dashboard .block-language-dataviewjs h2 {
+  margin-top: 0;
+  border-bottom: none;
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--pd-font-body);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ---------- Tables ---------- */
+
+.pro-dashboard table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pro-dashboard table thead th {
+  background: var(--background-primary);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.pro-dashboard table tbody td {
+  padding: 7px 10px;
+  border-top: 1px solid var(--background-modifier-border);
+  font-family: var(--pd-font-mono);
+  font-size: 12.5px;
+  color: var(--text-normal);
+}
+
+.pro-dashboard table tbody tr:nth-child(even) {
+  background: var(--background-primary);
+}
+
+.pro-dashboard table tbody tr:hover {
+  background: var(--background-modifier-hover);
+}
+
+/* ---------- Charts ---------- */
+
+.pro-dashboard .block-language-dataviewjs canvas {
+  max-width: 100%;
+}
+
+.pro-dashboard .block-language-dataviewjs > div {
+  max-width: 100% !important;
+}
+
+/* ---------- Motion ---------- */
+
+.pro-dashboard .markdown-preview-sizer > * {
+  animation: pd-fade-in 0.25s ease both;
+}
+
+@keyframes pd-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pro-dashboard .markdown-preview-sizer > * {
+    animation: none;
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 700px) {
+  .pro-dashboard .markdown-preview-sizer {
+    grid-template-columns: 1fr;
+  }
+}
