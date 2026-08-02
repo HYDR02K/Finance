@@ -1,0 +1,11 @@
+{
+  "id": "finance-dashboard",
+  "name": "Finance Dashboard",
+  "version": "1.0.0",
+  "minAppVersion": "1.0.0",
+  "description": "A cycle-based personal finance dashboard: budget tracking, category breakdowns, and spending trend charts, built from your expense notes.",
+  "author": "Your Name",
+  "authorUrl": "",
+  "fundingUrl": "",
+  "isDesktopOnly": false
+}
