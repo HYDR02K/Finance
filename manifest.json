@@ -1,9 +1,0 @@
-{
-  "id": "pro-dashboard-style",
-  "name": "Pro Dashboard Style",
-  "version": "1.0.0",
-  "minAppVersion": "0.15.0",
-  "description": "Pure-CSS layout upgrade for your Dataview dashboard note. Turns the default top-to-bottom list of tables and charts into a proper multi-column dashboard grid. Does not touch any dataview/dataviewjs logic.",
-  "author": "Custom",
-  "isDesktopOnly": false
-}
